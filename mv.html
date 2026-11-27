@@ -20,12 +20,12 @@ button{font-size:22px;padding:16px;border:0;border-radius:12px;background:#e5393
 #err{color:#ff8a80;min-height:1.5em;margin:0}
 /* 우리 버튼은 왼쪽 위에 한 줄로 (유튜브 자체 조작바·⚙설정은 아래쪽에 있으니 안 겹치게) */
 /* 평소엔 완전히 숨김 → 화면을 만지면 5초 동안만 나타남 */
-#bar{position:fixed;left:14px;top:66vh;z-index:30;display:none;gap:10px;opacity:0;pointer-events:none;transition:opacity .3s}
+#bar{position:fixed;left:14px;top:50vh;z-index:30;display:none;gap:10px;opacity:0;pointer-events:none;transition:opacity .3s}
 body.playing #bar{display:flex}
 body.playing.active #bar{opacity:1;pointer-events:auto}
 #bar button{font-size:20px;padding:14px 20px;min-height:58px;background:rgba(0,0,0,.7);border:2px solid rgba(255,255,255,.4);touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
 #bar button:hover,#bar button:active{opacity:1;background:#e53935}
-#status{position:fixed;left:14px;top:calc(66vh + 70px);z-index:5;font-size:14px;color:#ccc;background:rgba(0,0,0,.6);padding:6px 10px;border-radius:8px;opacity:0;transition:opacity .3s;pointer-events:none}
+#status{position:fixed;left:14px;top:calc(50vh + 70px);z-index:5;font-size:14px;color:#ccc;background:rgba(0,0,0,.6);padding:6px 10px;border-radius:8px;opacity:0;transition:opacity .3s;pointer-events:none}
 body.active #status{opacity:1}
 /* 가만히 있으면 투명 막을 깔아서 커서(마우스 점) 숨김. 마우스를 움직이면 바로 걷혀서 유튜브 조작은 그대로 됨 */
 #cover{position:fixed;inset:0;z-index:25;display:none;cursor:none;background:transparent}
