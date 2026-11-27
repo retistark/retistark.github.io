@@ -58,7 +58,7 @@ body.playing.idle #cover{display:block}
 <script>
 {
 const $ = id => document.getElementById(id);
-const VER = '13'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
+const VER = '14'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
 const store = {
   get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
   set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
@@ -91,7 +91,8 @@ tag.src = 'https://www.youtube.com/iframe_api';
 document.head.appendChild(tag);
 window.onYouTubeIframeAPIReady = () => {
   apiReady = true;
-  // '바로 시작' 옵션은 없앰: 열면 항상 첫 화면(재생목록 입력)부터
+  // 페이지 열면 바로 재생 (저장된 재생목록, 없으면 기본 '신의주' 재생목록)
+  if (listId) start();
 };
 
 function loadList(){
