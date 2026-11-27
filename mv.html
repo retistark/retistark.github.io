@@ -52,14 +52,13 @@ body.playing.idle #cover{display:block}
 <div id="status"></div>
 <button id="btnSound">🔊 소리 켜기</button>
 <div id="bar">
-  <button id="btnSetup">재생목록 바꾸기</button>
   <button id="btnNext">다음 곡</button>
 </div>
 
 <script>
 {
 const $ = id => document.getElementById(id);
-const VER = '12'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
+const VER = '13'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
 const store = {
   get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
   set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
@@ -272,8 +271,6 @@ function openSetup(e){
   document.body.classList.remove('playing');
   setTimeout(() => $('url').focus(), 50);
 }
-$('btnSetup').addEventListener('pointerdown', openSetup);
-$('btnSetup').addEventListener('click', openSetup); // 리모컨·키보드 엔터용
 // 키보드/리모컨: S 또는 ESC 키로도 설정 열기
 document.addEventListener('keydown', e => {
   if (e.key === 's' || e.key === 'S' || e.key === 'ㄴ' || e.key === 'Escape') openSetup();
