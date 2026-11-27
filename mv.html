@@ -42,7 +42,6 @@ body.playing.idle #cover{display:block}
     <p class="hint">유튜브 재생목록 링크를 붙여넣고 시작을 누르세요. 한 번 넣으면 다음부터는 기억해요.</p>
     <input id="url" placeholder="https://youtube.com/playlist?list=..." autocomplete="off">
     <label><input type="checkbox" id="shuffle"> 섞어서 재생 (셔플)</label>
-    <label><input type="checkbox" id="autostart"> 다음에 열면 바로 시작 (소리 없이 시작될 수 있음)</label>
     <p id="err"></p>
     <button id="start">▶ 시작</button>
     <p class="hint">한 바퀴 다 돌면 재생목록을 새로 불러와서, 그사이 추가한 곡도 다음 바퀴부터 나와요. 재생 안 되는 영상은 자동으로 건너뛰어요.</p>
@@ -60,7 +59,7 @@ body.playing.idle #cover{display:block}
 <script>
 {
 const $ = id => document.getElementById(id);
-const VER = '11'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
+const VER = '12'; // 고칠 때마다 1씩 올리기 (열려 있는 화면이 새 버전을 알아서 불러옴)
 const store = {
   get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
   set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
@@ -80,7 +79,6 @@ const DEFAULT_LIST = 'PLKiYNMwxXPAc'; // 가게 재생목록 "신의주"
 let listId = parseList(qs.get('list') || store.get('mv_list') || DEFAULT_LIST);
 $('url').value = store.get('mv_url') || (listId ? 'https://www.youtube.com/playlist?list=' + listId : '');
 $('shuffle').checked = store.get('mv_shuffle') === '1';
-$('autostart').checked = store.get('mv_autostart') === '1';
 
 let player = null, apiReady = false, started = false;
 let lastGood = Date.now();   // 마지막으로 정상 재생된 시각
@@ -94,7 +92,7 @@ tag.src = 'https://www.youtube.com/iframe_api';
 document.head.appendChild(tag);
 window.onYouTubeIframeAPIReady = () => {
   apiReady = true;
-  if (store.get('mv_autostart') === '1' && listId) start();
+  // '바로 시작' 옵션은 없앰: 열면 항상 첫 화면(재생목록 입력)부터
 };
 
 function loadList(){
@@ -131,7 +129,6 @@ function start(){
   store.set('mv_list', id);
   store.set('mv_url', $('url').value.trim());
   store.set('mv_shuffle', $('shuffle').checked ? '1' : '0');
-  store.set('mv_autostart', $('autostart').checked ? '1' : '0');
   $('setup').style.display = 'none';
   document.body.classList.add('playing', 'idle');
   lastGood = Date.now();
